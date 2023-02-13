@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
  @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -126,4 +127,8 @@ body {
 }
 .data:last-child {
   border-right: none;
+}
+.copyright{
+  color: green;
+  font-family: 'Baloo 2', cursive;
 }
