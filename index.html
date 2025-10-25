@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="style.css">
   <style>@view-transition { navigation: auto; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
  </head>
  <body><!-- Navigation -->
@@ -180,7 +181,80 @@
   </footer><!-- Scroll to Top Button --> <button class="scroll-to-top" id="scrollToTop" title="Back to Top"> <i class="fas fa-arrow-up"></i> </button>
   <script>
     
-    
+    // Initialize EmailJS (replace with your public key later)
+  (function() {
+    emailjs.init("eUllcLGI92M8HYKz2");
+  })();
+
+  // Handle form submission
+  document.querySelector('.contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (name && email && message) {
+      // Show loading message
+      const loadingMsg = document.createElement('div');
+      loadingMsg.style.cssText = `
+        background: #3b82f6;
+        color: white;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        text-align: center;
+        animation: fadeInUp 0.5s ease;
+      `;
+      loadingMsg.textContent = "Sending your message...";
+      this.appendChild(loadingMsg);
+
+      // Send the email
+      emailjs.send("divyapoudel333", "emailtemplate333", {
+        from_name: name,
+        from_email: email,
+        message: message
+      })
+      .then(() => {
+        loadingMsg.remove();
+
+        // Success message
+        const successMsg = document.createElement('div');
+        successMsg.style.cssText = `
+          background: #10b981;
+          color: white;
+          padding: 1rem;
+          border-radius: 10px;
+          margin-top: 1rem;
+          text-align: center;
+          animation: fadeInUp 0.5s ease;
+        `;
+        successMsg.textContent = "Thank you for your message! I\'ll get back to you soon.";
+        this.appendChild(successMsg);
+        this.reset();
+
+        setTimeout(() => successMsg.remove(), 5000);
+      })
+      .catch(() => {
+        loadingMsg.remove();
+
+        // Error message
+        const errorMsg = document.createElement('div');
+        errorMsg.style.cssText = `
+          background: #ef4444;
+          color: white;
+          padding: 1rem;
+          border-radius: 10px;
+          margin-top: 1rem;
+          text-align: center;
+          animation: fadeInUp 0.5s ease;
+        `;
+        errorMsg.textContent = "Failed to send message. Please try again later.";
+        this.appendChild(errorMsg);
+        setTimeout(() => errorMsg.remove(), 5000);
+      });
+    }
+  });
 
         // Mobile menu toggle
         const hamburger = document.querySelector('.hamburger');
@@ -264,6 +338,7 @@
         updateActiveNav();
 
         // Contact form submission
+         /*
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -294,7 +369,7 @@
                 }, 5000);
             }
         });
-
+*/
 
 
         // Animate elements on scroll
